@@ -11,12 +11,14 @@ import pandas as pd
 import torch
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
+SRC_DIR = ROOT / "src"
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
 
-import vix_tcn_revin_xai_plus as vtrx
-import metrics_over_time_v2 as metrics_mod
-import cdew_concepts_v2 as concepts_mod
-import event_warping as ew
+import vix_xai as vtrx
+from vix_xai.metrics import run_metrics_over_time
+import vix_xai.concepts as concepts_mod
+from vix_xai.concepts import run_cdew_analysis, run_concept_dashboard
 
 
 DEFAULT_DROP_COLS = [
@@ -39,10 +41,9 @@ def parse_args() -> argparse.Namespace:
 
     p.add_argument("--out-dir", type=str, default="outputs")
     p.add_argument("--bundle-path", type=str, default=None)
-    p.add_argument("--prefer-tcn", action="store_true")
+    p.add_argument("--bundle-kind", choices=["auto", "best_model", "best_tcn"], default="auto")
     p.add_argument("--device", type=str, default=None)
 
-    # metrics pre-step
     p.add_argument("--reference-mode", type=str, default="multi_ref", choices=["fixed", "multi_ref", "prototype"])
     p.add_argument("--band", type=int, default=5)
     p.add_argument("--alpha", type=float, default=1.5)
@@ -52,7 +53,6 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--horizon", type=int, default=5)
     p.add_argument("--q-event", type=float, default=0.98)
 
-    # cdew
     p.add_argument("--q-safe", type=float, default=0.90)
     p.add_argument("--threshold-source", type=str, default="train_only")
     p.add_argument("--tcav-cv-folds", type=int, default=5)
@@ -74,7 +74,7 @@ def resolve_device(device_arg: str | None) -> torch.device:
     return torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def resolve_bundle_path(out_dir: str, bundle_path: str | None, prefer_tcn: bool) -> Path:
+def resolve_bundle_path(out_dir: str, bundle_path: str | None, bundle_kind: str) -> Path:
     if bundle_path is not None:
         path = Path(bundle_path)
         if not path.exists():
@@ -82,14 +82,17 @@ def resolve_bundle_path(out_dir: str, bundle_path: str | None, prefer_tcn: bool)
         return path
 
     bundles_dir = Path(out_dir) / "bundles"
-    candidates = (
-        [bundles_dir / "best_tcn_bundle.pt", bundles_dir / "best_model_bundle.pt"]
-        if prefer_tcn
-        else [bundles_dir / "best_model_bundle.pt", bundles_dir / "best_tcn_bundle.pt"]
-    )
+    if bundle_kind == "best_model":
+        candidates = [bundles_dir / "best_model_bundle.pt"]
+    elif bundle_kind == "best_tcn":
+        candidates = [bundles_dir / "best_tcn_bundle.pt"]
+    else:
+        candidates = [bundles_dir / "best_tcn_bundle.pt", bundles_dir / "best_model_bundle.pt"]
+
     for path in candidates:
         if path.exists():
             return path
+
     raise FileNotFoundError(f"No bundle found in {bundles_dir}")
 
 
@@ -154,7 +157,7 @@ def _emerging_market_shock(df_raw, df_ref):
 def main() -> None:
     args = parse_args()
     device = resolve_device(args.device)
-    bundle_path = resolve_bundle_path(args.out_dir, args.bundle_path, args.prefer_tcn)
+    bundle_path = resolve_bundle_path(args.out_dir, args.bundle_path, args.bundle_kind)
 
     print(f"[INFO] device      : {device}")
     print(f"[INFO] bundle_path : {bundle_path}")
@@ -181,9 +184,7 @@ def main() -> None:
         target_mode=target_mode,
     )
 
-    metrics_result = metrics_mod.run_metrics_over_time_v2(
-        vtrx_module=vtrx,
-        ew_module=ew,
+    metrics_result = run_metrics_over_time(
         model=model,
         meta=meta,
         cfg=cfg,
@@ -211,9 +212,7 @@ def main() -> None:
         debug_max_n=args.debug_max_n,
     )
 
-    cdew_result = concepts_mod.run_cdew_analysis(
-        vtrx_module=vtrx,
-        ew_module=ew,
+    cdew_result = run_cdew_analysis(
         model=model,
         meta=meta,
         cfg=cfg,
@@ -250,9 +249,7 @@ def main() -> None:
             "EmergingMarketShock": _emerging_market_shock,
         }
 
-        dash_result = concepts_mod.run_concept_dashboard(
-            vtrx_module=vtrx,
-            ew_module=ew,
+        dash_result = run_concept_dashboard(
             model=model,
             meta=meta,
             cfg=cfg,
@@ -284,7 +281,7 @@ def main() -> None:
         "target_mode": target_mode,
         "run_dashboard": bool(args.run_dashboard),
         "cdew_success": cdew_result is not None,
-        "dashboard_success": dash_result is not None if args.run_dashboard else None,
+        "dashboard_success": (dash_result is not None) if args.run_dashboard else None,
     }
 
     save_path = Path(args.save_dir_cdew) / "run_cdew_summary.json"
