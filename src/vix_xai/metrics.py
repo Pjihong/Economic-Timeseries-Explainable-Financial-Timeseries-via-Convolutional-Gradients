@@ -20,7 +20,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from . import event_warping as ew
+from . import event_wraping as ew
 
 
 # ═══════════════════════════════════════════════════════════════════
