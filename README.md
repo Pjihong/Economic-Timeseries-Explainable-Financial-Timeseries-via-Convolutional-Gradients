@@ -17,11 +17,11 @@ The goal of this repository is to provide a clean and reproducible research code
 
 ```text
 .
+project_root/
 ├─ README.md
-├─ LICENSE
-├─ .gitignore
+├─ pyproject.toml
 ├─ requirements.txt
-├─ environment.yml
+├─ .gitignore
 ├─ data/
 │  ├─ raw/
 │  ├─ processed/
@@ -32,6 +32,11 @@ The goal of this repository is to provide a clean and reproducible research code
 │  ├─ 03_xai_gradcam.ipynb
 │  ├─ 04_posthoc_analysis.ipynb
 │  └─ 05_metrics_cdew.ipynb
+├─ scripts/
+│  ├─ run_experiment.py
+│  ├─ run_posthoc.py
+│  ├─ run_metrics.py
+│  └─ run_cdew.py
 ├─ src/
 │  └─ vix_xai/
 │     ├─ __init__.py
@@ -41,16 +46,19 @@ The goal of this repository is to provide a clean and reproducible research code
 │     ├─ training.py
 │     ├─ eval.py
 │     ├─ xai.py
+│     ├─ utils.py
 │     ├─ experiments.py
+│     ├─ event_warping.py
 │     ├─ posthoc.py
 │     ├─ metrics.py
-│     ├─ concepts.py
-│     ├─ event_warping.py
-│     └─ utils.py
-├─ scripts/
-│  ├─ run_experiment.py
-│  ├─ run_posthoc.py
-│  ├─ run_metrics.py
-│  └─ run_cdew.py
-├─ outputs/
-└─ tests/
+│     └─ concepts.py
+├─ tests/
+│  ├─ test_data.py
+│  ├─ test_event_warping.py
+│  └─ test_smoke_train.py
+├─ outputs/                        
+├─ vix_tcn_revin_xai_plus.py       
+├─ posthoc_analysis_v2.py          
+├─ metrics_over_time_v2.py         # shim
+├─ cdew_concepts_v2.py             # shim
+└─ event_warping.py                # shim
