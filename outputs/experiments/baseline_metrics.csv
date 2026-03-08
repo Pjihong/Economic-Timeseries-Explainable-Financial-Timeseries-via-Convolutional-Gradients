@@ -1,0 +1,5 @@
+baseline_name,split,rmse_level,seed,target_mode
+naive,val,1.348303198814392,5,level
+drift,val,1.348303198814392,5,level
+naive,test,2.119464159011841,5,level
+drift,test,2.119464159011841,5,level

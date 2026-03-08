@@ -1,0 +1,13 @@
+{
+  "band": 5,
+  "k": 3,
+  "dist_method": "wasserstein",
+  "alpha": 1.5,
+  "top_p": 0.2,
+  "weight_mode": "local",
+  "gamma": 1.0,
+  "reference_mode": "fixed",
+  "n_prototypes": 5,
+  "horizon": 5,
+  "q_event": 0.98
+}

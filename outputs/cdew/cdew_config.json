@@ -1,0 +1,16 @@
+{
+  "threshold_source": "train_only",
+  "q_safe": 0.9,
+  "safe_asset_cols": [
+    "Gold"
+  ],
+  "risk_asset_col": [
+    "SPX",
+    "S&P"
+  ],
+  "band": 5,
+  "normalize_cam": true,
+  "clip_cam_nonneg": true,
+  "tcav_cv_folds": 5,
+  "n_perm": 500
+}

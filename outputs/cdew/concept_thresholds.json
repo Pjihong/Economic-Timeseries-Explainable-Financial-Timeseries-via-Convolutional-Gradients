@@ -1,0 +1,11 @@
+{
+  "safe_score_threshold": 0.010081985139789714,
+  "risk_condition": "SPX < 0",
+  "source_period": "2023-02-15 00:00:00",
+  "threshold_source": "train_only",
+  "safe_cols": [
+    "Gold"
+  ],
+  "risk_col": "SPX",
+  "q_safe": 0.9
+}

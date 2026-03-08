@@ -1,0 +1,3 @@
+concept,cv_acc_mean,cv_acc_std,cv_auc_mean,cv_auc_std,pos_count
+FlightToSafety,0.5064912280701754,0.028067434076664195,0.3416839199447895,0.09449644211355078,34
+LiquiditySqueeze,,,,,0

@@ -1,0 +1,13 @@
+metric_name,k,precision_at_k,recall_at_k,ref_id
+raw_dtw_norm,1,0.0,0.0,0
+raw_dtw_norm,5,0.0,0.0,0
+raw_dtw_norm,10,0.0,0.0,0
+dtdw_norm,1,0.0,0.0,0
+dtdw_norm,5,0.0,0.0,0
+dtdw_norm,10,0.0,0.0,0
+emb_dtw_norm,1,0.0,0.0,0
+emb_dtw_norm,5,0.0,0.0,0
+emb_dtw_norm,10,0.0,0.0,0
+emb_cam_dtw_norm,1,0.0,0.0,0
+emb_cam_dtw_norm,5,0.0,0.0,0
+emb_cam_dtw_norm,10,0.0,0.0,0

@@ -1,0 +1,2 @@
+metric,event_mean,control_mean,diff,p_value,effect_size
+cam_peak_shift,9.25,16.0,-6.75,0.364,-0.7863336509948424

@@ -221,70 +221,10 @@ def run_metrics_over_time(
     )
 
 
-def run_metrics_over_time(
-    *,
-    model,
-    meta,
-    cfg,
-    df_raw,
-    device,
-    reference_mode="fixed",
-    n_prototypes=5,
-    band=5,
-    k_dtdw=3,
-    dist_method="wasserstein",
-    alpha=1.5,
-    top_p=0.20,
-    weight_mode="local",
-    gamma=1.0,
-    horizon=5,
-    q_event=0.98,
-    evaluate_auc=True,
-    evaluate_retrieval=True,
-    k_list=(1, 5, 10),
-    alphas_sensitivity=None,
-    top_ps_sensitivity=None,
-    save_dir="outputs/metrics",
-    show=False,
-    seed=42,
-    debug_max_n=None,
-):
-    import vix_xai as vtrx_module
-    return run_metrics_over_time_v2(
-        vtrx_module=vtrx_module,
-        ew_module=ew,
-        model=model,
-        meta=meta,
-        cfg=cfg,
-        df_raw=df_raw,
-        device=device,
-        reference_mode=reference_mode,
-        n_prototypes=n_prototypes,
-        band=band,
-        k_dtdw=k_dtdw,
-        dist_method=dist_method,
-        alpha=alpha,
-        top_p=top_p,
-        weight_mode=weight_mode,
-        gamma=gamma,
-        horizon=horizon,
-        q_event=q_event,
-        evaluate_auc=evaluate_auc,
-        evaluate_retrieval=evaluate_retrieval,
-        k_list=k_list,
-        alphas_sensitivity=alphas_sensitivity,
-        top_ps_sensitivity=top_ps_sensitivity,
-        save_dir=save_dir,
-        show=show,
-        seed=seed,
-        debug_max_n=debug_max_n,
-    )
-
-
 def run_metrics_over_time_v2(
     *,
-    vtrx_module=None,
-    ew_module=None,
+    vtrx_module,
+    ew_module,
     model,
     meta,
     cfg,
@@ -311,10 +251,6 @@ def run_metrics_over_time_v2(
     seed=42,
     debug_max_n=None,
 ):
-    if vtrx_module is None:
-        import vix_xai as vtrx_module
-    if ew_module is None:
-        ew_module = ew
     _ensure(save_dir)
     np.random.seed(seed)
 

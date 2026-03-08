@@ -1,0 +1,25 @@
+{
+  "event_horizons": [
+    5
+  ],
+  "event_quantiles": [
+    0.95
+  ],
+  "q_control_range": [
+    0.4,
+    0.6
+  ],
+  "match_methods": [
+    "knn"
+  ],
+  "n_neighbors": 1,
+  "max_pairs": 200,
+  "min_index_gap": 20,
+  "enforce_nonoverlap": true,
+  "n_perm": 500,
+  "random_deletion_trials": 100,
+  "mask_percentile": 90,
+  "fdr_correction": true,
+  "last_k": 5,
+  "seed": 42
+}

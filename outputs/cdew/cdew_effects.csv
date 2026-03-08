@@ -1,0 +1,4 @@
+effect_name,effect_size,p_raw,p_fdr,n
+event_vs_nonevent,-0.6634456113983991,0.132,0.824,8
+concept_vs_nonconcept,-0.03922650426256376,0.808,0.824,34
+concept_controlling_event,-0.03922650426256376,0.824,0.396,34
