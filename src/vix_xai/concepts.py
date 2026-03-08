@@ -21,7 +21,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from .event_warping import dtw_from_cost_matrix
+from .event_wraping import dtw_from_cost_matrix
 
 
 # ═══════════════════════════════════════════════════════════════════
