@@ -1,0 +1,37 @@
+name: vix-xai
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+
+dependencies:
+
+  - python=3.10
+
+  # core stack
+  - numpy=1.26
+  - pandas=2.2
+  - scipy=1.13
+  - scikit-learn=1.4
+
+  # plotting
+  - matplotlib=3.8
+  - seaborn=0.13
+
+  # utilities
+  - tqdm
+  - joblib
+  - pyyaml
+
+  # notebooks
+  - jupyter
+  - ipykernel
+
+  # pytorch (cpu build)
+  - pytorch=2.2
+  - torchvision
+  - torchaudio
+
+  - pip
+  - pip:
+      - tensorboard
