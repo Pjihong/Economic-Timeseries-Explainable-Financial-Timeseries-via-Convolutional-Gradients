@@ -1,4 +1,4 @@
-# Experiment Interpretation: VIX TCN/CNN + Event-Warping + XAI + C-DEW
+# Experiment Interpretation
 
 이 문서는 `outputs/metrics`, `outputs/posthoc`, `outputs/cdew`, `outputs/concepts`에 저장된 CSV/PNG 산출물을 함께 읽기 위한 **GitHub용 해석 README**다.  
 핵심 목적은 “무엇이 잘 되었는가”뿐 아니라, **무엇까지는 말할 수 있고 무엇은 아직 말하면 안 되는가**를 분명히 하는 것이다.
