@@ -292,35 +292,6 @@ Event의 COM(abs)가 더 작다는 것은, 중요도가 시간창의 **앞부분
 
 ---
 
-## 10. Concept-aware 해석(TCAV / C-DEW)에 대한 보수적 정리
-
-현재 concept-aware 층은 event-warping 결과만큼 안정적이지 않다.
-
-### 관찰 요약
-
-- `FlightToSafety` positive count: **34**
-- `LiquiditySqueeze`: **0**
-- TCAV CV accuracy: **약 0.51**
-- TCAV CV AUC: **약 0.34**
-- CAV stability cosine: fold별 변동이 큼
-- `cdew_effects.csv`: 유의한 효과 없음
-
-### 해석
-
-이 결과는 다음 가능성을 시사한다.
-
-1. concept label 정의가 latent representation과 잘 맞지 않을 수 있다.
-2. latent space 안에 concept가 선형적으로 안정적으로 박혀 있지 않을 수 있다.
-3. 표본 수 부족 또는 label noise가 클 수 있다.
-
-따라서 현재 단계에서는
-
-> **C-DEW / TCAV가 의미 있는 semantic concept distance를 안정적으로 제공한다**
-
-고 주장하기는 어렵다.  
-지금은 **validated explanation layer** 라기보다 **future work에 가까운 exploratory module** 로 보는 편이 적절하다.
-
----
 
 ## 11. 최종 해석
 
@@ -337,7 +308,6 @@ Event의 COM(abs)가 더 작다는 것은, 중요도가 시간창의 **앞부분
 
 ---
 
-## 12. README에 바로 넣기 좋은 문장
 
 ### Korean version
 
@@ -345,12 +315,4 @@ Event의 COM(abs)가 더 작다는 것은, 중요도가 시간창의 **앞부분
 
 > Post-hoc CAM 분석은 event window에서 입력 시퀀스의 더 이른 구간이 상대적으로 중요할 가능성을 시사한다. 다만 matched pair 수가 매우 적고 balance가 충분히 확보되지 않았으므로, 이 결과는 확증적이라기보다 탐색적 증거로 해석하는 것이 적절하다.
 
-> Concept-aware layer(TCAV / C-DEW)는 아직 안정적이거나 통계적으로 설득력 있는 패턴을 보이지 않았다. 현재 단계에서는 event-warping 모듈이 가장 성숙하며, concept-based explanation layer는 추가 검증이 필요한 상태다.
 
-### English version
-
-> In our experiments, distributional temporal warping (DTDW) provided the clearest separation between tail-event and non-event periods in VIX, substantially outperforming raw DTW. This suggests that VIX stress episodes are better characterized by local distributional deformation than by simple pointwise level deviation.
-
-> Post-hoc CAM analysis suggests that event windows may rely more on earlier portions of the input sequence. However, because the matched sample is very small and covariate balance remains imperfect, these findings should be treated as exploratory rather than confirmatory.
-
-> The concept-aware layer (TCAV / C-DEW) did not yet show stable or statistically convincing behavior. At this stage, the event-warping component appears mature, whereas the concept-based explanation layer remains a work in progress.
